@@ -1,9 +1,20 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { use } from "react";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
 
-    
+  const handleSignOutUser = () => {
+    signOutUser()
+      .then(() => {
+        console.log("logout successful");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
 
   const links = (
     <>
@@ -13,9 +24,14 @@ const Navbar = () => {
       <li className="hover:text-primary">
         <NavLink to="/allChallenges">All Challenges</NavLink>
       </li>
-      <li className="hover:text-primary">
-        <NavLink to="/myActivities">My Activities</NavLink>
-      </li>
+
+      {user && (
+        <>
+          <li className="hover:text-primary">
+            <NavLink to="/myActivities">My Activities</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -68,37 +84,39 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
+          {user ? (
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  />
+                </div>
               </div>
+              <ul
+                tabIndex="-1"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              >
+                <li className=" hover:text-primary">
+                  <a className="justify-between">Profile</a>
+                </li>
+                <li className=" hover:text-primary">
+                  <button type="button" onClick={handleSignOutUser}>
+                    Logout
+                  </button>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+          ) : (
+            <Link to="/auth/login" className="btn bg-primary text-white">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

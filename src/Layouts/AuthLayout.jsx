@@ -11,6 +11,18 @@ const AuthLayout = () => {
       <main className="max-w-[1440px] w-full mx-auto min-h-screen bg-base-200 flex flex-col justify-center items-center p-8 md:py-14">
         <Outlet></Outlet>
       </main>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
