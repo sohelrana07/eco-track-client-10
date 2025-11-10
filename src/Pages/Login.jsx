@@ -6,7 +6,17 @@ import { Link } from "react-router";
 const Login = () => {
   const [showPassword, SetShowPassword] = useState(false);
 
-  const handleTogglePassword = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    console.log({ email, password });
+  };
+
+  //   password show toggle
+  const handleTogglePasswordVisibility = () => {
     SetShowPassword(!showPassword);
   };
 
@@ -31,9 +41,9 @@ const Login = () => {
             </a>
           </div>
 
-          <form className="">
+          <form onSubmit={handleLogin}>
             <fieldset className="fieldset">
-              {/* email field */}
+              {/* name field */}
               <label className="label">Email</label>
               <input
                 type="email"
@@ -54,7 +64,7 @@ const Login = () => {
                   required
                 />
                 <span
-                  onClick={handleTogglePassword}
+                  onClick={handleTogglePasswordVisibility}
                   className="absolute top-[50%] translate-y-[-50%] right-6 z-50 cursor-pointer"
                 >
                   {showPassword ? <IoEye size={20} /> : <IoEyeOff size={20} />}
@@ -72,27 +82,29 @@ const Login = () => {
               </div>
 
               {/* Google */}
-              <button className="btn bg-white text-black hover:bg-secondary hover:text-white border-[#e5e5e5]">
+              <button
+                type="button"
+                className="btn bg-white text-black hover:bg-secondary hover:text-white border-[#e5e5e5]"
+              >
                 <FcGoogle size={18} />
                 Login with Google
               </button>
-
-              <div className="text-center pt-3 flex flex-col justify-center items-center gap-2">
-                <Link className="link link-hover font-medium">
-                  Forgot password?
-                </Link>
-                <a className="font-semibold text-secondary">
-                  Don't have an account?{" "}
-                  <Link
-                    to="/auth/register"
-                    className="text-primary tracking-wider hover:underline"
-                  >
-                    Register
-                  </Link>
-                </a>
-              </div>
             </fieldset>
           </form>
+
+          {/* Forgot password and other*/}
+          <div className="text-center pt-2.5 flex flex-col justify-center items-center gap-2 text-x">
+            <Link className="link link-hover">Forgot password?</Link>
+            <p className="font-semibold text-secondary">
+              Don't have an account?{" "}
+              <Link
+                to="/auth/register"
+                className="text-primary tracking-wider hover:underline"
+              >
+                Register
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

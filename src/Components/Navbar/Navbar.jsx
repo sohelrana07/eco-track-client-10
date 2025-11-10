@@ -2,22 +2,19 @@ import React from "react";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
+
+    
+
   const links = (
     <>
-      <li>
-        <NavLink>Item 1</NavLink>
+      <li className="hover:text-primary">
+        <NavLink to="/">Home</NavLink>
       </li>
-      <li>
-        <NavLink>Item 1</NavLink>
+      <li className="hover:text-primary">
+        <NavLink to="/allChallenges">All Challenges</NavLink>
       </li>
-      <li>
-        <NavLink>Item 1</NavLink>
-      </li>
-      <li>
-        <NavLink>Item 1</NavLink>
-      </li>
-      <li>
-        <NavLink>Item 1</NavLink>
+      <li className="hover:text-primary">
+        <NavLink to="/myActivities">My Activities</NavLink>
       </li>
     </>
   );
@@ -66,8 +63,10 @@ const Navbar = () => {
         </div>
         {/* navbar end */}
         <div className="navbar-end">
-          <div className="hidden lg:flex">
-            <ul className="menu menu-horizontal px-1">{links}</ul>
+          <div className="hidden lg:flex mr-6">
+            <ul className="flex gap-6 items-center text-sm text-secondary font-medium special">
+              {links}
+            </ul>
           </div>
           <div className="dropdown dropdown-end">
             <div

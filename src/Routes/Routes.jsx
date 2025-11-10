@@ -6,6 +6,8 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PasswordReset from "../Pages/PasswordReset";
+import AllChallenges from "../Pages/AllChallenges";
+import MyActivities from "../Pages/MyActivities";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/allChallenges",
+        element: <AllChallenges></AllChallenges>,
+      },
+      {
+        path: "/myActivities",
+        element: <MyActivities></MyActivities>,
       },
     ],
   },

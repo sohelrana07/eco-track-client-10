@@ -1,12 +1,53 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
 
 const Register = () => {
   const [showPassword, SetShowPassword] = useState(false);
+  const { createUser, signInWithGoogle } = use(AuthContext);
+  const navigate = useNavigate();
 
-  const handleTogglePassword = () => {
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    console.log({ name, email, photo, password });
+
+    // Password Authentication
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        navigate("/");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
+
+  //   SignIn with Google
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        navigate("/");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error;
+        console.log(errorMessage);
+      });
+  };
+
+  //   password show toggle
+  const handleTogglePasswordVisibility = () => {
     SetShowPassword(!showPassword);
   };
 
@@ -31,25 +72,15 @@ const Register = () => {
             </a>
           </div>
 
-          <form className="">
+          <form onSubmit={handleRegister}>
             <fieldset className="fieldset">
-              {/* email field */}
+              {/* name field */}
               <label className="label">Name</label>
               <input
                 type="text"
                 name="name"
                 className="input w-full outline-none focus:border-2 focus:border-primary"
                 placeholder="Enter your name"
-                required
-              />
-
-              {/* photoURL field */}
-              <label className="label">PhotoURL</label>
-              <input
-                type="text"
-                name="photo"
-                className="input w-full outline-none focus:border-2 focus:border-primary"
-                placeholder="https://example.com/images.png"
                 required
               />
 
@@ -60,6 +91,16 @@ const Register = () => {
                 name="email"
                 className="input w-full outline-none focus:border-2 focus:border-primary"
                 placeholder="example@gmail.com"
+                required
+              />
+
+              {/* photoURL field */}
+              <label className="label">PhotoURL</label>
+              <input
+                type="text"
+                name="photo"
+                className="input w-full outline-none focus:border-2 focus:border-primary"
+                placeholder="https://example.com/images.png"
                 required
               />
 
@@ -74,14 +115,17 @@ const Register = () => {
                   required
                 />
                 <span
-                  onClick={handleTogglePassword}
+                  onClick={handleTogglePasswordVisibility}
                   className="absolute top-[50%] translate-y-[-50%] right-6 z-50 cursor-pointer"
                 >
                   {showPassword ? <IoEye size={20} /> : <IoEyeOff size={20} />}
                 </span>
               </div>
-              <button className="btn bg-primary text-white hover:opacity-90 mt-4">
-                Login
+              <button
+                type="submit"
+                className="btn bg-primary text-white hover:opacity-90 mt-4"
+              >
+                Register
               </button>
 
               {/* Divider */}
@@ -92,27 +136,30 @@ const Register = () => {
               </div>
 
               {/* Google */}
-              <button className="btn bg-white text-black hover:bg-secondary hover:text-white border-[#e5e5e5]">
+              <button
+                type="button"
+                onClick={handleSignInWithGoogle}
+                className="btn bg-white text-black hover:bg-secondary hover:text-white border-[#e5e5e5]"
+              >
                 <FcGoogle size={18} />
                 Continue with Google
               </button>
-
-              <div className="text-center pt-3 flex flex-col justify-center items-center gap-2">
-                <Link className="link link-hover font-medium">
-                  Forgot password?
-                </Link>
-                <a className="font-semibold text-secondary">
-                  Already have an account??{" "}
-                  <Link
-                    to="/auth/login"
-                    className="text-primary tracking-wider hover:underline"
-                  >
-                    Login
-                  </Link>
-                </a>
-              </div>
             </fieldset>
           </form>
+
+          {/* Forgot password and other link*/}
+          <div className="text-center pt-2.5 flex flex-col justify-center items-center gap-2">
+            <Link className="link link-hover">Forgot password?</Link>
+            <p className="font-semibold text-secondary">
+              Already have an account??{" "}
+              <Link
+                to="/auth/login"
+                className="text-primary tracking-wider hover:underline"
+              >
+                Login
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
