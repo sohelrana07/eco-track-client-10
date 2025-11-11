@@ -6,6 +6,8 @@ const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
   const navigate = useNavigate();
 
+  console.log(user);
+
   const handleSignOutUser = () => {
     signOutUser()
       .then(() => {
@@ -94,10 +96,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  />
+                  <img title={user?.displayName} alt="" src={user?.photoURL} />
                 </div>
               </div>
               <ul
@@ -105,7 +104,9 @@ const Navbar = () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
                 <li className=" hover:text-primary">
-                  <a className="justify-between">Profile</a>
+                  <Link to="/profile" className="justify-between">
+                    Profile
+                  </Link>
                 </li>
                 <li className=" hover:text-primary">
                   <button type="button" onClick={handleSignOutUser}>

@@ -1,10 +1,11 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
+import { FaSpinner } from "react-icons/fa6";
 
 const Login = () => {
   const [showPassword, SetShowPassword] = useState(false);
@@ -33,14 +34,14 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
-        toast.success("Login successful");
+        e.target.reset();
         setLoading(false);
         navigate("/");
-        e.target.reset();
       })
       .catch((error) => {
         const errorMessage = error.message;
         toast.error("Login failed: " + errorMessage);
+        setLoading(false);
       });
   };
 
@@ -49,13 +50,13 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        toast.success("Login successful");
         setLoading(false);
         navigate("/");
       })
       .catch((error) => {
         const errorMessage = error;
         toast.error("Login failed: " + errorMessage);
+        setLoading(false);
       });
   };
 
@@ -64,10 +65,22 @@ const Login = () => {
     SetShowPassword(!showPassword);
   };
 
+  // loading
+  useEffect(() => {
+    setLoading(true);
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [setLoading]);
+
   if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
+      <title>Eco Track | login</title>
       <div className="card bg-base-100 w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <div className="flex flex-col justify-center items-center gap-2 pb-5">
@@ -120,9 +133,17 @@ const Login = () => {
 
               <button
                 type="submit"
+                disabled={loading}
                 className="btn bg-primary text-white hover:opacity-90 mt-4"
               >
-                Login
+                {loading ? (
+                  <>
+                    <FaSpinner className="animate-spin" size={18} />
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
               </button>
 
               {/* Divider */}

@@ -16,25 +16,22 @@ const PasswordReset = () => {
     console.log({ email });
   };
 
-  // // loading
-  // useEffect(() => {
-  //   setLoading(true);
+  // loading
+  useEffect(() => {
+    setLoading(true);
 
-  // const timer = setTimeout(() => {
-  //   setLoading(false);
-  // }, 1500);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
 
-  //   return () => clearTimeout(timer);
-  // }, [setLoading]);
-
-  setTimeout(() => {
-    setLoading(false);
-  }, 1500);
+    return () => clearTimeout(timer);
+  }, [setLoading]);
 
   if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
+      <title>Eco Track | Password reset</title>
       <div className="card bg-base-100 w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <div className="flex flex-col justify-center items-center gap-2 pb-5">
