@@ -1,14 +1,16 @@
 import React, { use } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
+  const navigate = useNavigate();
 
   const handleSignOutUser = () => {
     signOutUser()
       .then(() => {
         console.log("logout successful");
+        navigate("/auth/login");
       })
       .catch((error) => {
         const errorMessage = error.message;

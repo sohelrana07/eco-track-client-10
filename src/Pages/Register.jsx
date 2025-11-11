@@ -3,11 +3,18 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
+import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Register = () => {
   const [showPassword, SetShowPassword] = useState(false);
-  const { createUser, signInWithGoogle } = use(AuthContext);
+  const { createUser, signInWithGoogle, loading, setLoading } =
+    use(AuthContext);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  //   const validatePassword = (password) => {
+  // };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -19,16 +26,25 @@ const Register = () => {
 
     console.log({ name, email, photo, password });
 
+    if (password.length < 6) return setError("Minimum 6 characters required");
+    if (!/[A-Z]/.test(password))
+      return setError("At least 1 uppercase letter required");
+    if (!/[a-z]/.test(password))
+      return setError("At least 1 lowercase letter required");
+    if (!/[!@#$%^&*(),.?/":{}|<>]/.test(password))
+      return setError("At least 1 special character required");
+
     // Password Authentication
     createUser(email, password)
       .then((result) => {
-        const user = result.user;
+        console.log(result.user);
+        toast.success("Register successful");
+        setLoading(false);
         navigate("/");
-        console.log(user);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        toast.error("Registration failed: " + errorMessage);
       });
   };
 
@@ -36,13 +52,14 @@ const Register = () => {
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        const user = result.user;
+        console.log(result.user);
+        toast.success("Login successful");
+        setLoading(false);
         navigate("/");
-        console.log(user);
       })
       .catch((error) => {
         const errorMessage = error;
-        console.log(errorMessage);
+        toast.error("Login failed: " + errorMessage);
       });
   };
 
@@ -50,6 +67,8 @@ const Register = () => {
   const handleTogglePasswordVisibility = () => {
     SetShowPassword(!showPassword);
   };
+
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
@@ -80,7 +99,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 className="input w-full outline-none focus:border-2 focus:border-primary"
-                placeholder="Enter your name"
+                placeholder="Enter your full name"
                 required
               />
 
@@ -121,6 +140,8 @@ const Register = () => {
                   {showPassword ? <IoEye size={20} /> : <IoEyeOff size={20} />}
                 </span>
               </div>
+              {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+
               <button
                 type="submit"
                 className="btn bg-primary text-white hover:opacity-90 mt-4"
@@ -147,23 +168,19 @@ const Register = () => {
             </fieldset>
           </form>
 
-          {/* Forgot password and other link*/}
-          <div className="text-center pt-2.5 flex flex-col justify-center items-center gap-2">
-            <Link className="link link-hover">Forgot password?</Link>
-            <p className="font-semibold text-secondary">
-              Already have an account??{" "}
-              <Link
-                to="/auth/login"
-                className="text-primary tracking-wider hover:underline"
-              >
-                Login
-              </Link>
-            </p>
-          </div>
+          {/* link */}
+          <p className="font-semibold text-secondary text-center text-xs">
+            Already have an account?{" "}
+            <Link
+              to="/auth/login"
+              className="text-primary tracking-wider hover:underline"
+            >
+              Login
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
 };
-
 export default Register;

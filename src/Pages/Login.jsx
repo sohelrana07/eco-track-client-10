@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../Context/AuthContext";
+import { toast } from "react-toastify";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Login = () => {
   const [showPassword, SetShowPassword] = useState(false);
+  const { signInUser, signInWithGoogle, loading, setLoading } =
+    use(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -13,12 +20,51 @@ const Login = () => {
     const password = e.target.password.value;
 
     console.log({ email, password });
+
+    if (password.length < 6) return setError("Minimum 6 characters required");
+    if (!/[A-Z]/.test(password))
+      return setError("At least 1 uppercase letter required");
+    if (!/[a-z]/.test(password))
+      return setError("At least 1 lowercase letter required");
+    if (!/[!@#$%^&*(),.?/":{}|<>]/.test(password))
+      return setError("At least 1 special character required");
+
+    // signIn User
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Login successful");
+        setLoading(false);
+        navigate("/");
+        e.target.reset();
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error("Login failed: " + errorMessage);
+      });
+  };
+
+  //   Login with Google
+  const handleLoginWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Login successful");
+        setLoading(false);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorMessage = error;
+        toast.error("Login failed: " + errorMessage);
+      });
   };
 
   //   password show toggle
   const handleTogglePasswordVisibility = () => {
     SetShowPassword(!showPassword);
   };
+
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
     <div className="hero-content flex-col lg:flex-row-reverse">
@@ -70,7 +116,12 @@ const Login = () => {
                   {showPassword ? <IoEye size={20} /> : <IoEyeOff size={20} />}
                 </span>
               </div>
-              <button className="btn bg-primary text-white hover:opacity-90 mt-4">
+              {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+
+              <button
+                type="submit"
+                className="btn bg-primary text-white hover:opacity-90 mt-4"
+              >
                 Login
               </button>
 
@@ -84,6 +135,7 @@ const Login = () => {
               {/* Google */}
               <button
                 type="button"
+                onClick={handleLoginWithGoogle}
                 className="btn bg-white text-black hover:bg-secondary hover:text-white border-[#e5e5e5]"
               >
                 <FcGoogle size={18} />
@@ -93,8 +145,10 @@ const Login = () => {
           </form>
 
           {/* Forgot password and other*/}
-          <div className="text-center pt-2.5 flex flex-col justify-center items-center gap-2 text-x">
-            <Link className="link link-hover">Forgot password?</Link>
+          <div className="text-center pt-2.5 flex flex-col justify-center items-center gap-2 text-xs">
+            <Link to="/auth/password/reset" className="link link-hover">
+              Forgot password?
+            </Link>
             <p className="font-semibold text-secondary">
               Don't have an account?{" "}
               <Link
