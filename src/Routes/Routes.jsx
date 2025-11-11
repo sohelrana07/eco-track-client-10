@@ -6,9 +6,11 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PasswordReset from "../Pages/PasswordReset";
-import AllChallenges from "../Pages/AllChallenges";
+import Challenges from "../Pages/Challenges";
 import MyActivities from "../Pages/MyActivities";
 import Profile from "../Pages/Profile";
+import PrivateRoute from "../Private/PrivateRoute";
+import ChallengeDetails from "../Components/ChallengeCard/ChallengeDetails";
 
 const router = createBrowserRouter([
   {
@@ -21,16 +23,32 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/allChallenges",
-        element: <AllChallenges></AllChallenges>,
+        path: "/challenges",
+        element: <Challenges></Challenges>,
+      },
+      {
+        path: "/challenges/:id",
+        element: (
+          <PrivateRoute>
+            <ChallengeDetails></ChallengeDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myActivities",
-        element: <MyActivities></MyActivities>,
+        element: (
+          <PrivateRoute>
+            <MyActivities></MyActivities>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

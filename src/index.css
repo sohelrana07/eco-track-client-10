@@ -18,6 +18,10 @@
   @apply bg-amber-400;
 }
 
+.btn-secondary {
+  @apply btn btn-outline btn-accent border-primary rounded-full text-primary text-sm hover:bg-primary hover:text-white hover:border-none;
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -26,7 +30,6 @@
   font-family: "Salsa", cursive;
 }
 
-
-.special a.active{
-  @apply text-primary
+.special a.active {
+  @apply text-primary;
 }

@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 const MainLayout = () => {
   return (
     <div>
-      <header className="sticky top-0">
+      <header className="sticky top-0 z-50">
         <Navbar></Navbar>
       </header>
       <main className="max-w-[1440px] w-full mx-auto min-h-screen p-8 md:py-14 md:px-10 bg-base-200">

@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
@@ -12,10 +12,8 @@ const Register = () => {
   const { createUser, signInWithGoogle, loading, setLoading } =
     use(AuthContext);
   const [error, setError] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
-
-  //   const validatePassword = (password) => {
-  // };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -42,7 +40,7 @@ const Register = () => {
         toast.success("Register successful");
         e.target.reset();
         setLoading(false);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -58,7 +56,7 @@ const Register = () => {
         console.log(result.user);
         toast.success("Login successful");
         setLoading(false);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         const errorMessage = error;

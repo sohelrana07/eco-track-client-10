@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <title>Eco Track | Profile Page</title>
-      <div className="bg-base-100 rounded-md shadow-xl p-8 w-full max-w-lg text-center border border-primary">
+      <div className="bg-base-100 rounded-md shadow-xl p-8 w-full max-w-lg text-center">
         {/* Profile Image */}
         <div className="w-36 h-36 rounded-full p-1 bg-primary mx-auto">
           {" "}

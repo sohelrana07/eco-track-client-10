@@ -26,13 +26,16 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li className="hover:text-primary">
-        <NavLink to="/allChallenges">All Challenges</NavLink>
+        <NavLink to="/challenges">Challenges</NavLink>
       </li>
 
       {user && (
         <>
           <li className="hover:text-primary">
             <NavLink to="/myActivities">My Activities</NavLink>
+          </li>
+          <li className="hover:text-primary">
+            <NavLink to="/profile">Profile</NavLink>
           </li>
         </>
       )}
@@ -41,7 +44,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
-      <div className="max-w-[1440px] w-full mx-auto flex justify-between items-center lg:px-7 bg-transparent">
+      <div className="max-w-[1440px] w-full mx-auto flex justify-between items-center lg:px-7">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -109,6 +112,11 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className=" hover:text-primary">
+                  <Link to="/myActivities" className="justify-between">
+                    My Activities
+                  </Link>
+                </li>
+                <li className=" hover:text-primary">
                   <button type="button" onClick={handleSignOutUser}>
                     Logout
                   </button>
@@ -116,9 +124,20 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <Link to="/auth/login" className="btn bg-primary text-white">
-              Login
-            </Link>
+            <>
+              <Link
+                to="/auth/login"
+                className="btn btn-outline btn-accent hover:bg-primary hover:text-white px-5 mr-6"
+              >
+                Login
+              </Link>
+              <Link
+                to="/auth/register"
+                className="btn bg-primary hover:opacity-90 text-white"
+              >
+                Register
+              </Link>
+            </>
           )}
         </div>
       </div>

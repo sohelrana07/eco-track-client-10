@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./LoadingSpinner";
@@ -12,6 +12,7 @@ const Login = () => {
   const { signInUser, signInWithGoogle, loading, setLoading } =
     use(AuthContext);
   const [error, setError] = useState("");
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -36,7 +37,7 @@ const Login = () => {
         console.log(result.user);
         e.target.reset();
         setLoading(false);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -51,7 +52,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         setLoading(false);
-        navigate("/");
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         const errorMessage = error;
