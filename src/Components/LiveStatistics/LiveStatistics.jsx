@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaLeaf, FaRecycle, FaWater, FaCarSide } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
 
+
 const LiveStatistics = () => {
   const axiosInstance = useAxios();
   const [stats, setStats] = useState(null);
