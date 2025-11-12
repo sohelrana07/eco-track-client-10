@@ -1,8 +1,6 @@
-// HowItWorks.jsx
 import React from "react";
 
-// Static steps content with icons
-const steps = [
+const dataCollection = [
   {
     icon: "📝",
     title: "Join a Challenge",
@@ -28,7 +26,7 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section className="max-w-6xl mx-auto py-16 relative">
+    <section className="max-w-6xl mx-auto pt-16 pb-8">
       {/* Heading */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary font-salsa">
@@ -40,30 +38,21 @@ const HowItWorks = () => {
         </p>
       </div>
 
-      {/* Steps Cards */}
-      <ul className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        {steps.map((step, index) => (
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        {dataCollection.map((data, index) => (
           <li
             key={index}
-            className={`${step.bg} rounded-lg shadow-md p-6 flex flex-col items-center`}
+            className={`${data.bg} rounded-lg shadow-md p-6 flex flex-col items-center`}
           >
-            {/* Step Number */}
             <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-4 font-bold">
               {index + 1}
             </div>
-            {/* Icon */}
-            <span className="text-4xl mb-3">{step.icon}</span>
-            {/* Title */}
-            <h3 className="font-semibold text-gray-800 mb-2">{step.title}</h3>
-            {/* Description */}
-            <p className="text-gray-600 text-sm">{step.description}</p>
+            <span className="text-4xl mb-3">{data.icon}</span>
+            <h3 className="font-semibold text-secondary mb-2">{data.title}</h3>
+            <p className="text-gray-500 text-sm">{data.description}</p>
           </li>
         ))}
       </ul>
-
-      {/* Optional subtle background shapes */}
-      <div className="absolute top-0 left-0 w-32 h-32 bg-green-100 rounded-full opacity-20 -z-10"></div>
-      <div className="absolute bottom-0 right-0 w-40 h-40 bg-blue-100 rounded-full opacity-20 -z-10"></div>
     </section>
   );
 };

@@ -10,12 +10,12 @@ const RecentTips = () => {
   useEffect(() => {
     axiosInstance
       .get("/recent")
-      .then((res) => setRecentTips(res.data))
+      .then((data) => setRecentTips(data.data))
       .catch((err) => console.error(err));
   }, [axiosInstance]);
 
   return (
-    <section className="max-w-6xl mx-auto my-16">
+    <section className="max-w-6xl mx-auto py-16">
       {/* header */}
       <div className="text-center mb-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-3 text-primary font-salsa">
