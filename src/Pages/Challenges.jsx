@@ -7,7 +7,6 @@ import ErrorPage from "./ErrorPage";
 const Challenges = () => {
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [challenges, setChallenges] = useState([]);
 
   useEffect(() => {
@@ -19,11 +18,9 @@ const Challenges = () => {
         console.log(data.data);
         setChallenges(data.data);
       })
-      .catch((error) => setError(error))
       .finally(() => setLoading(false));
   }, [axiosInstance]);
 
-  if (error) return <ErrorPage></ErrorPage>;
 
   return (
     <div>

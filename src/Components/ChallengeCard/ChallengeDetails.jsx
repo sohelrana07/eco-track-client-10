@@ -35,27 +35,38 @@ const ChallengeDetails = () => {
   // join challenge
   const handleJoinChallenge = () => {
     const newJoinData = {
-      userId: user.email,
+      userId: user?.email,
       challengeId: id,
       status: "Not Started",
       progress: 0,
       joinDate: new Date(),
     };
 
-    axiosInstance.post(`/challenge/join/${id}`, newJoinData).then((data) => {
-      console.log(data.data.result);
-      if (data.data.result.insertedId) {
-        // sweetAlert
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "You've successfully joined this challenge!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        setRefresh(!refresh);
-      }
-    });
+    axiosInstance
+      .post(`/challenge/join/${id}`, newJoinData)
+      .then((data) => {
+        console.log(data.data.result);
+        if (data.data.result.insertedId) {
+          // sweetAlert
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "You've successfully joined this challenge!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setRefresh(!refresh);
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You have already joined this challenge!",
+          });
+        }
+      });
   };
 
   if (loading) return <LoadingSpinner></LoadingSpinner>;

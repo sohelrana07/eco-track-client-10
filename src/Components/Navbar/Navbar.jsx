@@ -32,10 +32,10 @@ const Navbar = () => {
       {user && (
         <>
           <li className="hover:text-primary">
-            <NavLink to="/myActivities">My Activities</NavLink>
+            <NavLink to="/challenge/add">Add Challenge</NavLink>
           </li>
           <li className="hover:text-primary">
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink to="/myActivities">My Activities</NavLink>
           </li>
         </>
       )}
