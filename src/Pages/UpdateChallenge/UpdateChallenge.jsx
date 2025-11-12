@@ -1,18 +1,17 @@
-import React, { useState, use } from "react";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../Context/AuthContext";
-import useAxios from "../Hooks/useAxios";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
 
-const AddChallenge = () => {
-  const { user } = use(AuthContext);
+const UpdateChallenge = () => {
+  const { id } = useParams();
   const axiosInstance = useAxios();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // handle createChallenge
-  const handleCreateChallenge = (e) => {
+  // handle updateChallenge
+  const handleUpdateChallenge = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -27,7 +26,7 @@ const AddChallenge = () => {
     const imageUrl = form.imageUrl.value;
 
     // add newChallenge
-    const newChallenge = {
+    const updateData = {
       title,
       category,
       description,
@@ -36,21 +35,18 @@ const AddChallenge = () => {
       startDate,
       endDate,
       imageUrl,
-      participants: 0,
-      createdBy: user?.email,
-      createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     setLoading(true);
     axiosInstance
-      .post("/challenges", newChallenge)
+      .patch(`/challenges/${id}`, updateData)
       .then((data) => {
-        if (data.data.insertedId) {
+        if (data.data.modifiedCount) {
           e.target.reset();
           Swal.fire({
             icon: "success",
-            title: "Challenge created successfully!",
+            title: "Challenge updated successfully!",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -66,8 +62,8 @@ const AddChallenge = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-base-100 rounded-sm shadow-md hover:shadow-2xl transition-shadow duration-200">
-      <h1 className="text-2xl font-bold mb-6">Add New Challenge</h1>
-      <form onSubmit={handleCreateChallenge} className="space-y-4">
+      <h1 className="text-2xl font-bold mb-6">Update Challenge</h1>
+      <form onSubmit={handleUpdateChallenge} className="space-y-4">
         {/* title */}
         <div>
           <label className="font-semibold mb-1.5">Title *</label>
@@ -173,11 +169,11 @@ const AddChallenge = () => {
             "btn bg-primary w-full mt-4 text-white text-base py-6 hover:opacity-90"
           }
         >
-          Create Challenge
+          Update Challenge
         </button>
       </form>
     </div>
   );
 };
 
-export default AddChallenge;
+export default UpdateChallenge;

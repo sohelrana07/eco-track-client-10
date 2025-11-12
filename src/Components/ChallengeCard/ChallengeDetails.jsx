@@ -17,7 +17,10 @@ const ChallengeDetails = () => {
     setLoading(true);
     axiosInstance
       .get(`/challenges/${id}`)
-      .then((data) => setChallengeDetails(data.data))
+      .then((data) => {
+        console.log(data.data);
+        setChallengeDetails(data.data);
+      })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, [id, axiosInstance, refresh]);
@@ -69,6 +72,11 @@ const ChallengeDetails = () => {
       });
   };
 
+  // handle delete challenge
+  const handleDeleteChallenge = () => {
+    console.log("btn clicked");
+  };
+
   if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
@@ -106,8 +114,29 @@ const ChallengeDetails = () => {
         <span className="font-semibold">Target:</span> {target}
       </p>
 
-      {/* Join Button */}
-      <div className="flex justify-end">
+      {/* update, delete ,join button */}
+      <div
+        className={`flex justify-between items-center mt-6 ${
+          challengeDetails.createdBy === user?.email || "justify-end mt-0"
+        }`}
+      >
+        {challengeDetails.createdBy === user?.email && (
+          <>
+            <Link
+              to={`/update/${id}`}
+              className="btn btn-primary px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-200"
+            >
+              Update This Challenge
+            </Link>
+            <button
+              onClick={handleDeleteChallenge}
+              className="btn btn-primary px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-200"
+            >
+              Delete This Challenge
+            </button>
+          </>
+        )}
+
         <button
           onClick={handleJoinChallenge}
           className="btn btn-primary px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-200"

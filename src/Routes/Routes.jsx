@@ -12,6 +12,7 @@ import Profile from "../Pages/Profile";
 import PrivateRoute from "../Private/PrivateRoute";
 import ChallengeDetails from "../Components/ChallengeCard/ChallengeDetails";
 import AddChallenge from "../Pages/AddChallenge";
+import UpdateChallenge from "../Pages/UpdateChallenge/UpdateChallenge";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddChallenge></AddChallenge>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateChallenge></UpdateChallenge>
           </PrivateRoute>
         ),
       },

@@ -32,7 +32,7 @@ const RecentTips = () => {
             key={tip._id}
             className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">
+            <h3 className="text-xl font-semibold text-secondary mb-3">
               {tip.title}
             </h3>
 
