@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import useAxios from "../../Hooks/useAxios";
 import LoadingSpinner from "../../Pages/LoadingSpinner";
 import { AuthContext } from "../../Context/AuthContext";
@@ -12,13 +12,14 @@ const ChallengeDetails = () => {
   const [challengeDetails, setChallengeDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
+  // challenge details
   useEffect(() => {
     setLoading(true);
     axiosInstance
       .get(`/challenges/${id}`)
       .then((data) => {
-        console.log(data.data);
         setChallengeDetails(data.data);
       })
       .catch((err) => console.error(err))
@@ -48,7 +49,6 @@ const ChallengeDetails = () => {
     axiosInstance
       .post(`/challenge/join/${id}`, newJoinData)
       .then((data) => {
-        console.log(data.data.result);
         if (data.data.result.insertedId) {
           // sweetAlert
           Swal.fire({
@@ -74,7 +74,33 @@ const ChallengeDetails = () => {
 
   // handle delete challenge
   const handleDeleteChallenge = () => {
-    console.log("btn clicked");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance
+          .delete(`/challenges/${id}`)
+          .then((data) => {
+            console.log(data.data);
+            if (data.data.deletedCount) {
+              // sweetAlert
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your challenge has been deleted!",
+                icon: "success",
+              });
+              navigate("/challenges");
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
   };
 
   if (loading) return <LoadingSpinner></LoadingSpinner>;

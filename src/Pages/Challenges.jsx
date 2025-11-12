@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import ChallengeCard from "../Components/ChallengeCard/ChallengeCard";
 import SkeletonLoader from "./SkeletonLoader";
-import ErrorPage from "./ErrorPage";
 
 const Challenges = () => {
   const axiosInstance = useAxios();
@@ -15,12 +14,10 @@ const Challenges = () => {
     axiosInstance
       .get("/challenges")
       .then((data) => {
-        console.log(data.data);
         setChallenges(data.data);
       })
       .finally(() => setLoading(false));
   }, [axiosInstance]);
-
 
   return (
     <div>
