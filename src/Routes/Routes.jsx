@@ -11,6 +11,7 @@ import MyActivities from "../Pages/MyActivities";
 import Profile from "../Pages/Profile";
 import PrivateRoute from "../Private/PrivateRoute";
 import ChallengeDetails from "../Components/ChallengeCard/ChallengeDetails";
+import AddChallenge from "../Pages/AddChallenge";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ChallengeDetails></ChallengeDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/challenges/add",
+        element: (
+          <PrivateRoute>
+            <AddChallenge></AddChallenge>
           </PrivateRoute>
         ),
       },

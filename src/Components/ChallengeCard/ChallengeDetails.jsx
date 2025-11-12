@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import useAxios from "../../Hooks/useAxios";
 import LoadingSpinner from "../../Pages/LoadingSpinner";
+import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const ChallengeDetails = () => {
+  const { user } = use(AuthContext);
   const { id } = useParams();
   const axiosInstance = useAxios();
   const [challengeDetails, setChallengeDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -16,7 +20,7 @@ const ChallengeDetails = () => {
       .then((data) => setChallengeDetails(data.data))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, [id, axiosInstance]);
+  }, [id, axiosInstance, refresh]);
 
   const {
     title,
@@ -28,17 +32,44 @@ const ChallengeDetails = () => {
     imageUrl,
   } = challengeDetails || "";
 
+  // join challenge
+  const handleJoinChallenge = () => {
+    const newJoinData = {
+      userId: user.email,
+      challengeId: id,
+      status: "Not Started",
+      progress: 0,
+      joinDate: new Date(),
+    };
+
+    axiosInstance.post(`/challenge/join/${id}`, newJoinData).then((data) => {
+      console.log(data.data.result);
+      if (data.data.result.insertedId) {
+        // sweetAlert
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You've successfully joined this challenge!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setRefresh(!refresh);
+      }
+    });
+  };
+
   if (loading) return <LoadingSpinner></LoadingSpinner>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-sm shadow-lg my-10">
+    <div className="group max-w-4xl mx-auto p-6 bg-base-100 rounded-sm shadow-md hover:shadow-2xl transition-shadow duration-200">
       {/* image */}
-      <div className="rounded-sm overflow-hidden mb-6">
+      <div className="rounded-sm overflow-hidden mb-6 relative">
         <img
           src={imageUrl}
           alt={title}
-          className="w-full h-72 md:h-96 object-cover"
+          className="w-full h-72 md:h-96 object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
         />
+        <div className="absolute inset-0 bg-black/20"></div>
       </div>
 
       {/* Title and Category */}
@@ -60,18 +91,18 @@ const ChallengeDetails = () => {
           <span className="font-semibold">Participants:</span> {participants}
         </p>
       </div>
-        <p className="col-span-2">
-          <span className="font-semibold">Target:</span> {target}
-        </p>
+      <p className="col-span-2">
+        <span className="font-semibold">Target:</span> {target}
+      </p>
 
       {/* Join Button */}
       <div className="flex justify-end">
-        <Link
-          to={`/challenges/join/${id}`}
+        <button
+          onClick={handleJoinChallenge}
           className="btn btn-primary px-6 py-3 rounded-lg hover:scale-105 transition-transform duration-200"
         >
           Join This Challenge
-        </Link>
+        </button>
       </div>
     </div>
   );
