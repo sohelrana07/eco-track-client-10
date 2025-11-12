@@ -25,16 +25,6 @@ const AddChallenge = () => {
     const startDate = form.startDate.value;
     const endDate = form.endDate.value;
 
-    // console.log({
-    //   title,
-    //   category,
-    //   description,
-    //   duration,
-    //   target,
-    //   startDate,
-    //   endDate,
-    // });
-
     // add newChallenge
     const newChallenge = {
       title,
@@ -55,13 +45,16 @@ const AddChallenge = () => {
       .post("/challenges", newChallenge)
       .then((data) => {
         if (data.data.insertedId) {
+          e.target.reset();
           Swal.fire({
             icon: "success",
             title: "Challenge Created Successfully!",
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/challenges");
+          setTimeout(() => {
+            navigate("/challenges");
+          }, 2000);
         }
       })
       .finally(() => setLoading(false));
@@ -73,7 +66,7 @@ const AddChallenge = () => {
     <div className="max-w-3xl mx-auto p-6 bg-base-100 rounded-sm shadow-md hover:shadow-2xl transition-shadow duration-200">
       <h1 className="text-2xl font-bold mb-6">Add New Challenge</h1>
       <form onSubmit={handleCreateChallenge} className="space-y-4">
-        {/* Title */}
+        {/* title */}
         <div>
           <label className="font-semibold mb-1.5">Title *</label>
           <input
@@ -137,7 +130,7 @@ const AddChallenge = () => {
           />
         </div>
 
-        {/* Start Date */}
+        {/* Start date */}
         <div>
           <label className="font-semibold mb-1.5">Start Date *</label>
           <input
@@ -148,7 +141,7 @@ const AddChallenge = () => {
           />
         </div>
 
-        {/* End Date */}
+        {/* End date */}
         <div>
           <label className="font-semibold mb-1.5">End Date *</label>
           <input
@@ -161,21 +154,22 @@ const AddChallenge = () => {
 
         {/* Image URL */}
         <div>
-          <label className="font-semibold mb-1.5">Image URL</label>
+          <label className="font-semibold mb-1.5">Image URL *</label>
           <input
             type="text"
             name="imageUrl"
             className="input w-full outline-none focus:border-2 focus:border-primary"
             placeholder="Enter image URL"
+            required
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Submit button */}
         <button
           type="submit"
-          className={`btn bg-primary w-full mt-4 text-white text-base py-6 hover:opacity-90 ${
-            loading ? "loading" : ""
-          }`}
+          className={
+            "btn bg-primary w-full mt-4 text-white text-base py-6 hover:opacity-90"
+          }
         >
           {loading ? (
             <>

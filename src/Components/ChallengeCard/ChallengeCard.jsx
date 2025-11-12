@@ -27,7 +27,7 @@ const ChallengeCard = ({ challenge }) => {
         <div className="absolute inset-0 bg-black/20"></div>
       </figure>
 
-      {/* Card Body */}
+      {/* Card body */}
       <div className="p-4 space-y-2">
         <h2 className="text-xl font-bold text-primary">{title}</h2>
 
@@ -35,8 +35,8 @@ const ChallengeCard = ({ challenge }) => {
           Category: <span className="text-primary">{category}</span>
         </p>
 
-        <p className="text-gray-600 text-sm line-clamp-2">
-          {description || "No description available."}
+        <p title={description} className="text-gray-600 text-sm line-clamp-1">
+          {description}
         </p>
 
         <div className="flex items-center justify-between pt-2">
@@ -50,7 +50,7 @@ const ChallengeCard = ({ challenge }) => {
           </p>
         </div>
 
-        {/* View Details Button */}
+        {/* View details button */}
         <div className="flex justify-end pt-3">
           <Link
             to={`/challenges/${_id}`}

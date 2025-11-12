@@ -1,9 +1,11 @@
 import React from "react";
+import LiveStatistics from "../../Pages/LiveStatistics/LiveStatistics";
 
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+ 
+      <LiveStatistics></LiveStatistics>
     </div>
   );
 };

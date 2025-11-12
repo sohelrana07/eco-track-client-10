@@ -127,7 +127,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/auth/login"
-                className="btn btn-outline btn-accent hover:bg-primary hover:text-white px-5"
+                className="btn btn-outline btn-accent border-primary text-primary hover:bg-primary hover:text-white px-5"
               >
                 Login
               </Link>

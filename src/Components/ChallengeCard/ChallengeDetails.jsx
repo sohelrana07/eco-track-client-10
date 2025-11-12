@@ -74,14 +74,14 @@ const ChallengeDetails = () => {
   return (
     <div className="group max-w-4xl mx-auto p-6 bg-base-100 rounded-sm shadow-md hover:shadow-2xl transition-shadow duration-200">
       {/* image */}
-      <div className="rounded-sm overflow-hidden mb-6 relative">
+      <figure className="rounded-sm overflow-hidden mb-6 relative">
         <img
           src={imageUrl}
           alt={title}
           className="w-full h-72 md:h-96 object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
         />
         <div className="absolute inset-0 bg-black/20"></div>
-      </div>
+      </figure>
 
       {/* Title and Category */}
       <h1 className="text-3xl font-bold text-primary mb-2">{title}</h1>

@@ -28,7 +28,7 @@ const Challenges = () => {
         <h3 className="text-3xl font-bold text-center mb-3 text-primary font-salsa">
           All Challenges
         </h3>
-        <p className="text-accent text-center max-w-2xl mx-auto">
+        <p className="text-accent text-center max-w-2xl mx-auto leading-relaxed">
           Explore our eco-friendly challenges and start making a positive impact
           today. Join, track your progress, and be part of the green community.
         </p>
