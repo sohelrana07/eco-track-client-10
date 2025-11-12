@@ -11,21 +11,20 @@ const ChallengeCard = ({ challenge }) => {
     duration,
     participants,
     imageUrl,
-  } = challenge;
+  } = challenge || "";
 
   return (
-
     <div className="group bg-base-100 rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300">
-      {/* Image Section */}
+      {/* Image */}
       <figure className="rounded-t-xl overflow-hidden relative">
         <img
           src={imageUrl}
           alt={title}
           loading="lazy"
-          className="w-full h-56 object-cover transform transition-transform duration-500 ease-out group-hover:scale-110"
+          className="w-full h-56 object-cover group-hover:scale-110 transform transition-transform duration-500 ease-in-out"
         />
-        {/* optional overlay for effect */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+
+        <div className="absolute inset-0 bg-black/20"></div>
       </figure>
 
       {/* Card Body */}

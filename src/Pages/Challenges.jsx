@@ -1,29 +1,54 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import ChallengeCard from "../Components/ChallengeCard/ChallengeCard";
+import SkeletonLoader from "./SkeletonLoader";
+import ErrorPage from "./ErrorPage";
 
 const Challenges = () => {
   const axiosInstance = useAxios();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [challenges, setChallenges] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get("/challenges").then((data) => {
-      console.log(data.data);
-      setChallenges(data.data);
-    });
+    setLoading(true);
+
+    axiosInstance
+      .get("/challenges")
+      .then((data) => {
+        console.log(data.data);
+        setChallenges(data.data);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
   }, [axiosInstance]);
+
+  if (error) return <ErrorPage></ErrorPage>;
 
   return (
     <div>
-      <h3>All Challenges</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {challenges.map((challenge) => (
-          <ChallengeCard
-            key={challenge._id}
-            challenge={challenge}
-          ></ChallengeCard>
-        ))}
+      <div className="mb-20">
+        <h3 className="text-3xl font-bold text-center mb-3 text-primary font-salsa">
+          All Challenges
+        </h3>
+        <p className="text-accent text-center max-w-2xl mx-auto">
+          Explore our eco-friendly challenges and start making a positive impact
+          today. Join, track your progress, and be part of the green community.
+        </p>
       </div>
+
+      {loading ? (
+        <SkeletonLoader count={12}></SkeletonLoader>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {challenges.map((challenge) => (
+            <ChallengeCard
+              key={challenge._id}
+              challenge={challenge}
+            ></ChallengeCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

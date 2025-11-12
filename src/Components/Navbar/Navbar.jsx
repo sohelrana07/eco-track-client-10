@@ -127,13 +127,13 @@ const Navbar = () => {
             <>
               <Link
                 to="/auth/login"
-                className="btn btn-outline btn-accent hover:bg-primary hover:text-white px-5 mr-6"
+                className="btn btn-outline btn-accent hover:bg-primary hover:text-white px-5"
               >
                 Login
               </Link>
               <Link
                 to="/auth/register"
-                className="btn bg-primary hover:opacity-90 text-white"
+                className="btn bg-primary hover:opacity-90 text-white ml-6 hidden md:flex"
               >
                 Register
               </Link>
