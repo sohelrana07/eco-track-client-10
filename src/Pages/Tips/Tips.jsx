@@ -4,6 +4,7 @@ import { FaThumbsUp } from "react-icons/fa6";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import useAxios from "../../Hooks/useAxios";
 import LoadingSpinner from "../LoadingSpinner";
+import TipsSkeletonLoader from "./TipsSkeletonLoader";
 
 const Tips = () => {
   const axiosInstance = useAxios();
@@ -34,44 +35,48 @@ const Tips = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tips.map((tip) => (
-          <div
-            key={tip._id}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-          >
-            <h3 className="text-xl font-semibold text-secondary mb-3">
-              {tip.title}
-            </h3>
+      {tips.length === 0 ? (
+        <TipsSkeletonLoader count={6}></TipsSkeletonLoader>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tips.map((tip) => (
+            <div
+              key={tip._id}
+              className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <h3 className="text-xl font-semibold text-secondary mb-3">
+                {tip.title}
+              </h3>
 
-            <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-              <div className="flex items-center gap-2">
-                <FaUserAlt className="text-primary" />
-                <span>{tip.authorName}</span>
+              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <div className="flex items-center gap-2">
+                  <FaUserAlt className="text-primary" />
+                  <span>{tip.authorName}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaThumbsUp className="text-primary" />
+                  <span>{tip.upvotes}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <FaThumbsUp className="text-primary" />
-                <span>{tip.upvotes}</span>
+
+              <p className="text-gray-600 text-sm mb-4 line-clamp-1">
+                {tip.content}
+              </p>
+
+              <div className="flex items-center gap-2 text-xs text-gray-400">
+                <MdOutlineCalendarToday />
+                <span>
+                  {new Date(tip.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </span>
               </div>
             </div>
-
-            <p className="text-gray-600 text-sm mb-4 line-clamp-1">
-              {tip.content}
-            </p>
-
-            <div className="flex items-center gap-2 text-xs text-gray-400">
-              <MdOutlineCalendarToday />
-              <span>
-                {new Date(tip.createdAt).toLocaleDateString("en-GB", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

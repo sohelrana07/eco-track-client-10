@@ -1,24 +1,25 @@
 import React, { use, useEffect, useState } from "react";
-import useAxios from "../Hooks/useAxios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 import LoadingSpinner from "./LoadingSpinner";
 import { AuthContext } from "../Context/AuthContext";
 import MyActivityCard from "../Components/MyActivityCard/MyActivityCard";
+import ActivitySkeleton from "../Components/MyActivityCard/ActivitySkeleton";
 
 const MyActivities = () => {
   const { user } = use(AuthContext);
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    axiosInstance
+    axiosSecure
       .get(`/myActivities?userId=${user?.email}`)
       .then((data) => {
         setActivities(data.data);
       })
       .finally(() => setLoading(false));
-  }, [axiosInstance, user]);
+  }, [axiosSecure, user]);
 
   if (loading) return <LoadingSpinner></LoadingSpinner>;
 
@@ -34,14 +35,18 @@ const MyActivities = () => {
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {activities.map((activity) => (
-          <MyActivityCard
-            key={activity._id}
-            activity={activity}
-          ></MyActivityCard>
-        ))}
-      </div>
+      {activities.length === 0 ? (
+        <ActivitySkeleton count={activities.length}></ActivitySkeleton>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {activities.map((activity) => (
+            <MyActivityCard
+              key={activity._id}
+              activity={activity}
+            ></MyActivityCard>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

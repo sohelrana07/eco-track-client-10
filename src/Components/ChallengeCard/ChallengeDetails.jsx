@@ -1,9 +1,10 @@
 import React, { use, useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router";
-import useAxios from "../../Hooks/useAxios";
+
 import LoadingSpinner from "../../Pages/LoadingSpinner";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
+import useAxios from "../../Hooks/useAxios";
 
 const ChallengeDetails = () => {
   const { user } = use(AuthContext);
@@ -22,7 +23,6 @@ const ChallengeDetails = () => {
       .then((data) => {
         setChallengeDetails(data.data);
       })
-      .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, [id, axiosInstance, refresh]);
 
@@ -46,6 +46,8 @@ const ChallengeDetails = () => {
       joinDate: new Date(),
     };
 
+    if (!user?.email) return;
+
     axiosInstance
       .post(`/challenge/join/${id}`, newJoinData)
       .then((data) => {
@@ -62,7 +64,7 @@ const ChallengeDetails = () => {
         }
       })
       .catch((error) => {
-        if (error.response && error.response.status === 400) {
+        if (error.status === 400) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -87,7 +89,6 @@ const ChallengeDetails = () => {
         axiosInstance
           .delete(`/challenges/${id}`)
           .then((data) => {
-            console.log(data.data);
             if (data.data.deletedCount) {
               // sweetAlert
               Swal.fire({

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../Hooks/useAxios";
 import ChallengeCard from "../Components/ChallengeCard/ChallengeCard";
 import SkeletonLoader from "./SkeletonLoader";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Challenges = () => {
   const axiosInstance = useAxios();
@@ -19,8 +20,11 @@ const Challenges = () => {
       .finally(() => setLoading(false));
   }, [axiosInstance]);
 
+  if (loading) return <LoadingSpinner></LoadingSpinner>;
+
   return (
     <div>
+      {/* header */}
       <div className="mb-20">
         <h3 className="text-3xl font-bold text-center mb-3 text-primary font-salsa">
           All Challenges
@@ -31,7 +35,7 @@ const Challenges = () => {
         </p>
       </div>
 
-      {loading ? (
+      {challenges.length === 0 ? (
         <SkeletonLoader count={12}></SkeletonLoader>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

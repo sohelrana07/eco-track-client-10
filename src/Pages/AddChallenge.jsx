@@ -1,13 +1,13 @@
 import React, { useState, use } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../Context/AuthContext";
-import useAxios from "../Hooks/useAxios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import LoadingSpinner from "./LoadingSpinner";
 
 const AddChallenge = () => {
   const { user } = use(AuthContext);
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const AddChallenge = () => {
     };
 
     setLoading(true);
-    axiosInstance
+    axiosSecure
       .post("/challenges", newChallenge)
       .then((data) => {
         if (data.data.insertedId) {

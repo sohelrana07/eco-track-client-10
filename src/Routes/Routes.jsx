@@ -32,11 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/challenges/:id",
-        element: (
-          <PrivateRoute>
-            <ChallengeDetails></ChallengeDetails>
-          </PrivateRoute>
-        ),
+        element: <ChallengeDetails></ChallengeDetails>,
       },
       {
         path: "/challenge/add",

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import useAxios from "../../Hooks/useAxios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../LoadingSpinner";
 
 const UpdateChallenge = () => {
   const { id } = useParams();
-  const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ const UpdateChallenge = () => {
     };
 
     setLoading(true);
-    axiosInstance
+    axiosSecure
       .patch(`/challenges/${id}`, updateData)
       .then((data) => {
         if (data.data.modifiedCount) {

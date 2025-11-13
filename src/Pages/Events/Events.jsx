@@ -3,6 +3,7 @@ import useAxios from "../../Hooks/useAxios";
 import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";
 import { Link } from "react-router";
 import LoadingSpinner from "../LoadingSpinner";
+import EventsSkeleton from "./EventsSkeleton";
 
 const Events = () => {
   const axiosInstance = useAxios();
@@ -32,36 +33,40 @@ const Events = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {events.map((event) => (
-          <div
-            key={event._id}
-            className="bg-white rounded-lg shadow-md border border-primary hover:shadow-lg transition-all duration-300 p-5 flex flex-col justify-between"
-          >
-            <div>
-              <h3 className="text-xl font-semibold text-primary mb-2">
-                {event.title}
-              </h3>
-              <p className="text-gray-600 text-sm mb-3">
-                {event.description.slice(0, 80)}...
-              </p>
-            </div>
+      {events.length === 0 ? (
+        <EventsSkeleton count={4}></EventsSkeleton>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {events.map((event) => (
+            <div
+              key={event._id}
+              className="bg-white rounded-lg shadow-md border border-primary hover:shadow-lg transition-all duration-300 p-5 flex flex-col justify-between"
+            >
+              <div>
+                <h3 className="text-xl font-semibold text-primary mb-2">
+                  {event.title}
+                </h3>
+                <p className="text-gray-600 text-sm mb-3">
+                  {event.description.slice(0, 80)}...
+                </p>
+              </div>
 
-            <div className="flex justify-between items-center text-xs text-accent mt-3 border-t pt-3">
-              <div className="flex items-center gap-2">
-                <FaCalendarAlt />
-                <span>{new Date(event.date).toLocaleDateString()}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <FaMapMarkerAlt />
-                <span title={event.location}>
-                  {event.location.slice(0, 15)}
-                </span>
+              <div className="flex justify-between items-center text-xs text-accent mt-3 border-t pt-3">
+                <div className="flex items-center gap-2">
+                  <FaCalendarAlt />
+                  <span>{new Date(event.date).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <FaMapMarkerAlt />
+                  <span title={event.location}>
+                    {event.location.slice(0, 15)}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

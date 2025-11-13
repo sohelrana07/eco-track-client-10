@@ -9,7 +9,7 @@ const HeroBanner = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get("featured-challenges")
+    axiosInstance.get("/featured/challenges")
     .then((data) => {
       setFeatured(data.data);
     });

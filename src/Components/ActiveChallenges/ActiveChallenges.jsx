@@ -25,29 +25,38 @@ const ActiveChallenges = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        {challenges?.map((challenge) => (
-          <div
-            key={challenge._id}
-            className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-          >
-            <img
-              src={challenge?.imageUrl}
-              alt=""
-              className="h-40 w-full object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{challenge?.title}</h3>
-              <p className="text-sm text-gray-500 mb-1">
-                {challenge?.category}
-              </p>
-              <p className="text-sm font-medium text-green-600">
-                {challenge?.metric}
-              </p>
+      {challenges.length === 0 ? (
+        <p className="text-accent max-w-2xl mx-auto py-20 text-center tracking-wider">
+          No data available! <br />
+          Login fast
+        </p>
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {challenges?.map((challenge) => (
+            <div
+              key={challenge._id}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+              <img
+                src={challenge?.imageUrl}
+                alt=""
+                className="h-40 w-full object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold mb-2">
+                  {challenge?.title}
+                </h3>
+                <p className="text-sm text-gray-500 mb-1">
+                  {challenge?.category}
+                </p>
+                <p className="text-sm font-medium text-green-600">
+                  {challenge?.metric}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       <div className="text-center mt-16">
         <Link
           to="/challenges"

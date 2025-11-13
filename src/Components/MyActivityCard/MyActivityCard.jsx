@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
-import useAxios from "../../Hooks/useAxios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
 const MyActivityCard = ({ activity }) => {
   const [data, setData] = useState({});
-  const axiosInstance = useAxios();
+  const axiosInstance = useAxiosSecure();
   const navigate = useNavigate();
   const updateModalRef = useRef();
 
@@ -32,7 +32,7 @@ const MyActivityCard = ({ activity }) => {
     if (progress === 100) status = "Completed";
     else if (progress > 0) status = "In Progress";
 
-    const updateData = { progress, status };
+    const updateData = { progress, status, updated: new Date() };
 
     axiosInstance
       .patch(`/myActivities/${activity._id}`, updateData)
@@ -69,12 +69,15 @@ const MyActivityCard = ({ activity }) => {
           <span className="font-medium">Status:</span> {activity.status}
         </p>
 
-        {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
+        {/* progress bar */}
+        <div className="w-[91%] bg-gray-200 rounded-full h-4 mb-4 relative">
           <div
             className="bg-primary h-4 rounded-full"
             style={{ width: `${activity.progress}%` }}
           />
+          <span className="text-sm font-medium text-primary absolute top-0 right-0 -mr-8 -mt-0.5">
+            {activity.progress}%
+          </span>
         </div>
 
         {/* Buttons */}
