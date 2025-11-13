@@ -39,6 +39,13 @@ const Navbar = () => {
           </li>
         </>
       )}
+
+      <li className="hover:text-primary">
+        <NavLink to="/tips">Tips</NavLink>
+      </li>
+      <li className="hover:text-primary">
+        <NavLink to="/events">Events</NavLink>
+      </li>
     </>
   );
 
