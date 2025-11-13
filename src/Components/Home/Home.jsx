@@ -5,10 +5,12 @@ import WhyGoGreen from "../WhyGoGreen/WhyGoGreen";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import RecentTips from "../RecentTips/RecentTips";
 import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
+import HeroBanner from "../HeroBanner/HeroBanner";
 
 const Home = () => {
   return (
     <div>
+      <HeroBanner></HeroBanner>
       <LiveStatistics></LiveStatistics>
       <ActiveChallenges></ActiveChallenges>
       <RecentTips></RecentTips>
