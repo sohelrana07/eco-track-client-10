@@ -9,7 +9,7 @@ const RecentTips = () => {
   const [recentTips, setRecentTips] = useState([]);
 
   useEffect(() => {
-    axiosInstance.get("/recent-tips").then((data) => setRecentTips(data.data));
+    axiosInstance.get("/recent/tips").then((data) => setRecentTips(data.data));
   }, [axiosInstance]);
 
   return (

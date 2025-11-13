@@ -1,65 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
+import { useNavigate } from "react-router";
 
 const HeroBanner = () => {
   const [featured, setFeatured] = useState([]);
-  const [current, setCurrent] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const axiosInstance = useAxios();
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get("/featured/challenges")
-    .then((data) => {
-      setFeatured(data.data);
-    });
+    const fetchFeatured = () => {
+      axiosInstance
+        .get("/featured/challenges")
+        .then((data) => setFeatured(data.data));
+    };
+    fetchFeatured();
   }, [axiosInstance]);
 
-  // Auto-play the carousel every 5 seconds
-  useEffect(() => {
-    if (featured.length === 0) return;
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % featured.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [featured]);
+  const currentSlide = featured[currentIndex];
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? featured.length - 1 : prev - 1));
+  };
 
-  const item = featured[current];
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev === featured.length - 1 ? 0 : prev + 1));
+  };
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl shadow-lg">
-      {/* image */}
-      <img
-        src={item?.imageUrl}
-        alt={item?.title}
-        className="absolute inset-0 w-full h-full object-cover brightness-75"
-      />
+    <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg">
+      <figure>
+        <img
+          src={currentSlide?.imageUrl}
+          alt={currentSlide?.title}
+          className="w-full h-full object-cover"
+        />
+      </figure>
 
-      {/* overlay */}
-      <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-5 text-white bg-black/15">
-        <h1 className="text-3xl md:text-5xl font-bold mb-3">{item?.title}</h1>
-        <p className="max-w-xl mb-5 text-sm md:text-base">
-          {item?.description.slice(0, 100)}...
-        </p>
-
-        <button
-          onClick={() => navigate(`/challenges/${item._id}`)}
-          className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-full"
-        >
-          View Challenge
-        </button>
+      <div className="absolute inset-0 bg-black/35 flex flex-col justify-center items-start px-6 md:px-16 text-white">
+        <div className="ml-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            {currentSlide?.title}
+          </h2>
+          <p className="max-w-xl text-sm md:text-lg mb-6">
+            {currentSlide?.description}
+          </p>
+          <button
+            onClick={() => navigate(`/challenges/${currentSlide?._id}`)}
+            className="bg-primary px-6 py-3 rounded-md text-white font-semibold hover:bg-opacity-90 transition"
+          >
+            View Challenge
+          </button>
+        </div>
       </div>
 
-      <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2">
-        {featured.map((_, index) => (
-          <div
-            key={index}
-            className={`w-3 h-3 rounded-full transition ${
-              current === index ? "bg-white" : "bg-gray-400"
-            }`}
-          ></div>
-        ))}
-      </div>
+      {/* arrow btn */}
+      <button
+        onClick={prevSlide}
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-60 hover:bg-opacity-90 text-gray-800 p-3 rounded-full z-20"
+      >
+        <FaArrowLeft />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-60 hover:bg-opacity-90 text-gray-800 p-3 rounded-full z-20"
+      >
+        <FaArrowRight />
+      </button>
     </div>
   );
 };

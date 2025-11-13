@@ -5,11 +5,13 @@ import LoadingSpinner from "../../Pages/LoadingSpinner";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import useAxios from "../../Hooks/useAxios";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const ChallengeDetails = () => {
   const { user } = use(AuthContext);
   const { id } = useParams();
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [challengeDetails, setChallengeDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
@@ -48,7 +50,7 @@ const ChallengeDetails = () => {
 
     if (!user?.email) return;
 
-    axiosInstance
+    axiosSecure
       .post(`/challenge/join/${id}`, newJoinData)
       .then((data) => {
         if (data.data.result.insertedId) {
@@ -86,7 +88,7 @@ const ChallengeDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosInstance
+        axiosSecure
           .delete(`/challenges/${id}`)
           .then((data) => {
             if (data.data.deletedCount) {

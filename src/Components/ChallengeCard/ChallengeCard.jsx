@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa";
 
 const ChallengeCard = ({ challenge }) => {
+
   const {
     _id,
     title,

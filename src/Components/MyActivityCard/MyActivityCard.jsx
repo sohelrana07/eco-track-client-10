@@ -5,15 +5,15 @@ import Swal from "sweetalert2";
 
 const MyActivityCard = ({ activity }) => {
   const [data, setData] = useState({});
-  const axiosInstance = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const updateModalRef = useRef();
 
   useEffect(() => {
-    axiosInstance.get(`/challenges/${activity.challengeId}`).then((res) => {
+    axiosSecure.get(`/challenges/${activity.challengeId}`).then((res) => {
       setData(res.data);
     });
-  }, [axiosInstance, activity]);
+  }, [axiosSecure, activity]);
 
   const handleBidModalOpen = () => {
     updateModalRef.current.showModal();
@@ -34,7 +34,7 @@ const MyActivityCard = ({ activity }) => {
 
     const updateData = { progress, status, updated: new Date() };
 
-    axiosInstance
+    axiosSecure
       .patch(`/myActivities/${activity._id}`, updateData)
       .then((data) => {
         console.log(data.data);
@@ -64,9 +64,18 @@ const MyActivityCard = ({ activity }) => {
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-1">{data.title}</h2>
         <p className="text-sm text-primary mb-2">{data.category}</p>
-        <p className="text-sm mb-2">
-          <span className="font-medium">Duration:</span> {data.duration} days |{" "}
-          <span className="font-medium">Status:</span> {activity.status}
+        <p className="text-sm mb-2 font-medium">
+          Duration: {data.duration} days |{" "}
+          <span className="font-medium">Status:</span>{" "}
+          <span
+            className={`${
+              activity.status === "Not Started"
+                ? "text-red-500"
+                : "text-green-500"
+            } font-medium`}
+          >
+            {activity.status}
+          </span>
         </p>
 
         {/* progress bar */}
@@ -75,7 +84,11 @@ const MyActivityCard = ({ activity }) => {
             className="bg-primary h-4 rounded-full"
             style={{ width: `${activity.progress}%` }}
           />
-          <span className="text-sm font-medium text-primary absolute top-0 right-0 -mr-8 -mt-0.5">
+          <span
+            className={`text-sm font-medium absolute top-0 right-0 -mr-8 -mt-0.5 ${
+              activity.progress === 0 ? "text-red-500" : "text-primary"
+            }`}
+          >
             {activity.progress}%
           </span>
         </div>
