@@ -1,16 +1,16 @@
-# React + Vite
+# EcoTrack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**EcoTrack** হলো একটি পরিবেশ সচেতনতা ও চ্যালেঞ্জ প্ল্যাটফর্ম।
 
-Currently, two official plugins are available:
+### মূল ফিচারসমূহ:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ব্যবহারকারীদের জন্য বিভিন্ন পরিবেশ-সচেতন চ্যালেঞ্জ।
+- কমিউনিটিতে অংশগ্রহণ ও প্রভাব ট্র্যাক করার সুবিধা।
+- রিয়েল-টাইম পরিসংখ্যান: CO₂ সাশ্রয়, পানি বাঁচানো, প্লাস্টিক কমানো।
+- ব্যবহারকারী প্রোফাইল ও অংশগ্রহণ ইতিহাস।
+- সুন্দর ও সহজ UI যা নবাগতদের জন্যও ব্যবহারযোগ্য।
 
-## React Compiler
+**লাইভ সাইট:**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Server live link: https://eco-track-server-10.vercel.app/
+Client live link: https://eco-track-assignment-10.web.app
