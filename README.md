@@ -43,14 +43,20 @@ EcoTrack helps individuals take actionable steps towards sustainable living by c
 
 - Protected dashboard and private routes
 
-## Tech Stack
+---
 
-**Frontend:** React.js, Tailwind CSS, Firebase Authentication
-**Backend:** Node.js, Express.js, MongoDB
-**Tools:** JWT, Git, Vite, Axios, Context API
+## 🛠 Tech Stack
+
+| Category       | Technology |
+|----------------|------------|
+| Frontend       | React.js, Tailwind CSS, Context API |
+| Backend        | Node.js, Express.js, MongoDB |
+| Auth           | Firebase Authentication, JWT |
+| Tools & Build  | Vite, Axios, Git |
+
+---
 
 ```
-
 ## Dependencies
 
 {
