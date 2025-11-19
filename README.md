@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="/overView.png" width="1440" height="750" />
-</p>
+![Image Alt Text](https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png)
 
 # 🪷 EcoTrack — Sustainable Living Community
 
@@ -47,6 +45,8 @@ EcoTrack helps individuals take actionable steps towards sustainable living by c
 **Backend:** Node.js, Express.js, MongoDB
 **Tools:** JWT, Git, Vite, Axios, Context API
 
+```
+
 ## Dependencies
 
 {
@@ -58,6 +58,8 @@ EcoTrack helps individuals take actionable steps towards sustainable living by c
 "express": "^4.x",
 "mongodb": "^6.x"
 }
+
+```
 
 ## Installation and Setup
 
@@ -153,6 +155,8 @@ npm run dev
 
 ### MongoDB Collections
 
+```
+
 **Challenges**
 jsonData
 
@@ -192,7 +196,6 @@ jsonData
 "createdAt": "2024-01-20T10:30:00Z"
 }
 
-```
 
 **Events**
 {
