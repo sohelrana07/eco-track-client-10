@@ -1,4 +1,6 @@
-<img width="1438" height="750" alt="image" src="/overView.png" />
+<p align="center">
+  <img src="/overView.png" width="1440" height="750" />
+</p>
 
 # 🪷 EcoTrack — Sustainable Living Community
 
