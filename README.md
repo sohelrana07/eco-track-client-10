@@ -1,4 +1,4 @@
-<img width="1438" height="750" alt="image" src="https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png" />
+<img width="1438" height="750" alt="image" src="/overView.png" />
 
 # 🪷 EcoTrack — Sustainable Living Community
 
