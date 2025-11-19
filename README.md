@@ -1,4 +1,4 @@
-<img src="https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png" 
+<img src="https://i.ibb.co.com/SXwpVf33/Screenshot-2025-11-19-154748.png" 
      alt="Screenshot" 
      width="100%" 
      height="750px" 
