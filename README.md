@@ -1,4 +1,4 @@
-![Image Alt Text](https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png)
+<img src="https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png" alt="Screenshot" width="75%">
 
 # 🪷 EcoTrack — Sustainable Living Community
 
@@ -65,24 +65,38 @@ EcoTrack helps individuals take actionable steps towards sustainable living by c
 
 1. Clone the repository
 
+```
+
 git clone https://github.com/sohelrana07/eco-track-client-10.git
 cd eco-track
 npm install
 
+```
+
 ## Install dependencies
 
+```
 npm install
 
+```
+
 ## Create .env file
+
+```
 
 VITE_apiKey=your_firebase_key
 VITE_authDomain=your_domain
 VITE_projectId=project_id
 VITE_serverUrl=http://localhost:5000
 
+```
+
 ## Run the project
 
+```
 npm run dev
+
+```
 
 ## 🗂️ Layout Structure
 
