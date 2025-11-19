@@ -1,4 +1,4 @@
-<img width="1438" height="742" alt="image" src="https://github.com/user-attachments/assets/c6adb38c-5398-43a5-b287-b68481cf80ee" />
+<img width="1438" height="750" alt="image" src="https://i.ibb.co.com/BHPMWq1z/Screenshot-2025-11-19-143906.png" />
 
 # 🪷 EcoTrack — Sustainable Living Community
 
