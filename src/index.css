@@ -22,6 +22,10 @@
   @apply btn btn-outline btn-accent border-primary rounded-full text-primary text-sm hover:bg-primary hover:text-white hover:border-none;
 }
 
+.btn-challenge {
+  @apply btn btn-sm btn-outline btn-accent border-primary rounded-full text-primary text-sm hover:bg-primary hover:text-white hover:border-none;
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -33,4 +37,3 @@
 .special a.active {
   @apply text-primary;
 }
-

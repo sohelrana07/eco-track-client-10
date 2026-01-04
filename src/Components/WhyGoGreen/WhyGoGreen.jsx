@@ -25,7 +25,7 @@ const WhyGoGreen = () => {
         {benefits.map((item, index) => (
           <li
             key={index}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300"
+            className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow duration-300"
           >
             <span className="text-4xl mb-4 block">{item.icon}</span>
             <p className="font-medium text-secondary">{item.title}</p>

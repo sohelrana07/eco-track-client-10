@@ -28,7 +28,7 @@ const RecentTips = () => {
         {recentTips.map((tip) => (
           <div
             key={tip._id}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            className="bg-white rounded-lg shadow-sm p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
           >
             <h3 className="text-xl font-semibold text-secondary mb-3">
               {tip.title}

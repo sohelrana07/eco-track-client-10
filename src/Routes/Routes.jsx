@@ -15,6 +15,10 @@ import AddChallenge from "../Pages/AddChallenge";
 import UpdateChallenge from "../Pages/UpdateChallenge/UpdateChallenge";
 import Tips from "../Pages/Tips/Tips";
 import Events from "../Pages/Events/Events";
+import About from "../Pages/About/About";
+import Terms from "../Pages/Terms/Terms";
+import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
+import FAQ from "../Pages/FAQ/FAQ";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +69,22 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <Events></Events>,
+      },
+      {
+        path: "/about",
+        element: <About></About>,
+      },
+      {
+        path: "/Terms",
+        element: <Terms></Terms>,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPolicy></PrivacyPolicy>,
+      },
+      {
+        path: "/faq",
+        element: <FAQ></FAQ>,
       },
       {
         path: "/profile",

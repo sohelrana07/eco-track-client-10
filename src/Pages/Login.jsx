@@ -21,7 +21,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log({ email, password });
+    // console.log({ email, password });
 
     if (password.length < 6) return setError("Minimum 6 characters required");
     if (!/[A-Z]/.test(password))

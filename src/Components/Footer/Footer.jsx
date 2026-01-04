@@ -1,4 +1,5 @@
 import React from "react";
+import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import {
   FaFacebookF,
   FaInstagram,
@@ -40,23 +41,47 @@ const Footer = () => {
           </nav>
           <nav>
             <h6 className="footer-title">Explore</h6>
-            <a className="link link-hover">Home</a>
-            <a className="link link-hover">Challenges</a>
-            <a className="link link-hover">Events</a>
-            <a className="link link-hover">Eco Tips</a>
+            <Link to="/" className="link link-hover">
+              Home
+            </Link>
+            <Link to="/challenges" className="link link-hover">
+              Challenges
+            </Link>
+            <Link to="/events" className="link link-hover">
+              Events
+            </Link>
+            <Link to="/tips" className="link link-hover">
+              Eco Tips
+            </Link>
           </nav>
           <nav>
             <h6 className="footer-title">Community</h6>
-            <a className="link link-hover">About EcoTrack</a>
-            <a className="link link-hover">Contact Us</a>
-            <a className="link link-hover">My Activities</a>
-            <a className="link link-hover">Share Your Tip</a>
+            <Link to="/about" className="link link-hover">
+              About EcoTrack
+            </Link>
+            <Link to="/terms" className="link link-hover">
+              Terms of Use
+            </Link>
+            <Link to="/privacy" className="link link-hover">
+              Privacy Policy
+            </Link>
+            <Link to="/faq" className="link link-hover">
+              FAQ
+            </Link>
           </nav>
           <nav>
-            <h6 className="footer-title">Legal</h6>
-            <a className="link link-hover">Terms of Use</a>
-            <a className="link link-hover">Privacy Policy</a>
-            <a className="link link-hover">Accessibility</a>
+            <h6 className="footer-title">Contact info</h6>
+            <p className="flex items-center gap-2 text-sm">
+              <FaEnvelope /> support@ecotrack.com
+            </p>
+
+            <p className="flex items-center gap-2 text-sm">
+              <FaPhoneAlt /> +880 1706154199
+            </p>
+
+            <p className="flex items-center gap-2 text-sm">
+              <FaMapMarkerAlt /> Dhaka, Bangladesh
+            </p>
           </nav>
         </footer>
         {/* copyright */}
@@ -65,18 +90,34 @@ const Footer = () => {
 
           {/* social links */}
           <div className="flex items-center gap-4">
-            <Link to="" className="p-2 rounded-md hover:bg-white/10">
+            <a
+              href="https://www.facebook.com/itzmehedii12"
+              target="_blank"
+              className="p-2 rounded-md hover:bg-white/10"
+            >
               <FaFacebookF size={18} />
-            </Link>
-            <Link to="" className="p-2 rounded-md hover:bg-white/10">
+            </a>
+            <a
+              href="https://www.instagram.com/itzmehedi12"
+              target="_blank"
+              className="p-2 rounded-md hover:bg-white/10"
+            >
               <FaInstagram size={18} />
-            </Link>
-            <Link to="" className="p-2 rounded-md hover:bg-white/10">
+            </a>
+            <a
+              href="https://linkedin.com/in/mdsohelrana07"
+              target="_blank"
+              className="p-2 rounded-md hover:bg-white/10"
+            >
               <FaLinkedinIn size={18} />
-            </Link>
-            <Link to="" className="p-2 rounded-md hover:bg-white/10">
+            </a>
+            <a
+              href="https://twitter.com/itzmehedi_12"
+              target="_blank"
+              className="p-2 rounded-md hover:bg-white/10"
+            >
               <FaXTwitter size={18} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

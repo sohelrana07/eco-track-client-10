@@ -1,8 +1,8 @@
 import React from "react";
 
-const SkeletonLoader = ({ count = 1 }) => {
+const SkeletonLoader = ({ count = 4 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {Array.from({ length: count }).map((_, i) => {
         return (
           <div key={i} className="flex flex-col gap-5 overflow-hidden">

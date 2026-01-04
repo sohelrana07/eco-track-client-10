@@ -34,16 +34,17 @@ const Challenges = () => {
 
     const category = form.category.value;
     const Participants = form.Participants.value;
+    const startDate = form.startDate.value;
 
     const filters = {
       category,
       Participants,
+      startDate,
     };
 
     fetchChallenges(filters);
   };
 
-  console.log(challenges);
   return (
     <div>
       {/* header */}
@@ -75,6 +76,12 @@ const Challenges = () => {
         </select>
 
         <input
+          type="date"
+          name="startDate"
+          className="input w-full outline-none border-primary focus:border-2 focus:border-primary"
+        />
+
+        <input
           type="text"
           name="Participants"
           placeholder="Search Participants"
@@ -99,7 +106,7 @@ const Challenges = () => {
           <p className="text-accent text-xl font-medium">Try now</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {challenges.map((challenge) => (
             <ChallengeCard
               key={challenge._id}

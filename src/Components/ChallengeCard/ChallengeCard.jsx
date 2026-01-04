@@ -3,16 +3,8 @@ import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa";
 
 const ChallengeCard = ({ challenge }) => {
-
-  const {
-    _id,
-    title,
-    category,
-    description,
-    duration,
-    participants,
-    imageUrl,
-  } = challenge || "";
+  const { _id, title, category, duration, participants, imageUrl } =
+    challenge || "";
 
   return (
     <div className="group bg-base-100 rounded-xl shadow-md hover:shadow-2xl transition-shadow duration-300">
@@ -30,14 +22,10 @@ const ChallengeCard = ({ challenge }) => {
 
       {/* Card body */}
       <div className="p-4 space-y-2">
-        <h2 className="text-xl font-bold text-primary">{title}</h2>
+        <h2 className="font-bold text-primary">{title}</h2>
 
-        <p className="text-secondary font-medium">
+        <p className="text-secondary font-medium text-sm">
           Category: <span className="text-primary">{category}</span>
-        </p>
-
-        <p title={description} className="text-gray-600 text-sm line-clamp-1">
-          {description}
         </p>
 
         <div className="flex items-center justify-between pt-2">
@@ -55,7 +43,7 @@ const ChallengeCard = ({ challenge }) => {
         <div className="flex justify-end pt-3">
           <Link
             to={`/challenges/${_id}`}
-            className="btn-secondary btn-sm flex items-center gap-2 hover:scale-105 transition-transform duration-200"
+            className="btn-challenge flex items-center gap-2 hover:scale-105 transition-transform duration-200"
           >
             View Details <FaArrowRight />
           </Link>

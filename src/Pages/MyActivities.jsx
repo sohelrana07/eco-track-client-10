@@ -21,7 +21,8 @@ const MyActivities = () => {
       .finally(() => setLoading(false));
   }, [axiosSecure, user]);
 
-  if (loading) return <LoadingSpinner></LoadingSpinner>;
+
+  if(loading) return <LoadingSpinner></LoadingSpinner>
 
   return (
     <div className="container mx-auto md:px-4">
@@ -35,10 +36,19 @@ const MyActivities = () => {
         </p>
       </div>
 
-      {activities.length === 0 ? (
-        <ActivitySkeleton count={activities.length}></ActivitySkeleton>
+      {loading ? (
+        <ActivitySkeleton count={4}></ActivitySkeleton>
+      ) : activities.length === 0 ? (
+        <div className="flex flex-col justify-center items-center mt-28">
+          <h3 className="text-3xl font-bold text-center mb-3 text-accent">
+            No activities yet
+          </h3>
+          <p className="text-accent text-lg text-center">
+            Join a challenge to start tracking your progress!
+          </p>
+        </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {activities.map((activity) => (
             <MyActivityCard
               key={activity._id}

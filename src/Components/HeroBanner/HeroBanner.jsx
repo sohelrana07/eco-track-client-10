@@ -13,10 +13,23 @@ const HeroBanner = () => {
     const fetchFeatured = () => {
       axiosInstance
         .get("/featured/challenges")
-        .then((data) => setFeatured(data.data));
+        .then((res) => setFeatured(res.data));
     };
     fetchFeatured();
   }, [axiosInstance]);
+
+  // auto play
+  useEffect(() => {
+    if (featured.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === featured.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [featured]);
 
   const currentSlide = featured[currentIndex];
   const prevSlide = () => {
@@ -47,7 +60,7 @@ const HeroBanner = () => {
           </p>
           <button
             onClick={() => navigate(`/challenges/${currentSlide?._id}`)}
-            className="bg-primary px-6 py-3 rounded-md text-white font-semibold hover:bg-opacity-90 transition"
+            className="cursor-pointer bg-primary px-6 py-3 rounded-md text-white font-semibold hover:bg-opacity-90 transition"
           >
             View Challenge
           </button>

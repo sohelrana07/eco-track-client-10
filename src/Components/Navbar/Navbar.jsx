@@ -1,11 +1,23 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const navigate = useNavigate();
-  
+
+  // handle Theme
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   // logOut
   const handleSignOutUser = () => {
     signOutUser()
@@ -44,6 +56,9 @@ const Navbar = () => {
       </li>
       <li className="hover:text-primary">
         <NavLink to="/events">Events</NavLink>
+      </li>
+      <li className="hover:text-primary">
+        <NavLink to="/about">About</NavLink>
       </li>
     </>
   );
@@ -92,8 +107,8 @@ const Navbar = () => {
         </div>
         {/* navbar end */}
         <div className="navbar-end">
-          <div className="hidden lg:flex mr-6">
-            <ul className="flex gap-6 items-center text-sm text-secondary font-medium special">
+          <div className="hidden lg:flex mr-5">
+            <ul className="flex gap-5 items-center text-sm text-secondary font-medium special">
               {links}
             </ul>
           </div>
@@ -108,10 +123,18 @@ const Navbar = () => {
                   <img title={user?.displayName} alt="" src={user?.photoURL} />
                 </div>
               </div>
+
               <ul
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
+                {/* theme */}
+                <input
+                  onChange={(e) => handleTheme(e.target.checked)}
+                  type="checkbox"
+                  defaultChecked={localStorage.getItem("theme") === "dark"}
+                  className="toggle m-2.5"
+                />
                 <li className=" hover:text-primary">
                   <Link to="/profile" className="justify-between">
                     Profile

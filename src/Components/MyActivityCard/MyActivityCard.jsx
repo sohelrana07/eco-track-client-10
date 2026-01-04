@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { BsCircleFill } from "react-icons/bs";
 
 const MyActivityCard = ({ activity }) => {
   const [data, setData] = useState({});
@@ -62,19 +64,32 @@ const MyActivityCard = ({ activity }) => {
       />
 
       <div className="p-4">
-        <h2 className="text-xl font-semibold mb-1">{data.title}</h2>
+        <h2 className="text-lg font-semibold mb-1">{data.title}</h2>
         <p className="text-sm text-primary mb-2">{data.category}</p>
-        <p className="text-sm mb-2 font-medium">
-          Duration: {data.duration} days |{" "}
-          <span className="font-medium">Status:</span>{" "}
-          <span
-            className={`${
-              activity.status === "Not Started"
-                ? "text-red-500"
-                : "text-green-500"
-            } font-medium`}
-          >
-            {activity.status}
+        <p className="text-sm mb-2 font-medium flex justify-between items-center">
+          <span className="flex items-center gap-1.5">
+            <AiOutlineClockCircle className="text-primary" size={18} />
+            {data.duration} days
+          </span>
+
+          <span className="flex items-center gap-1.5">
+            <BsCircleFill
+              className={`${
+                activity.status === "Not Started"
+                  ? "text-red-500"
+                  : "text-green-500"
+              } text-sm`}
+            />
+            <span
+              title={activity.status}
+              className={`${
+                activity.status === "Not Started"
+                  ? "text-red-500"
+                  : "text-green-500"
+              } font-medium`}
+            >
+              {activity.status}
+            </span>
           </span>
         </p>
 

@@ -42,7 +42,7 @@ const HowItWorks = () => {
         {dataCollection.map((data, index) => (
           <li
             key={index}
-            className={`${data.bg} rounded-lg shadow-md p-6 flex flex-col items-center`}
+            className={`${data.bg} rounded-lg shadow-sm p-6 flex flex-col items-center`}
           >
             <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mb-4 font-bold">
               {index + 1}
