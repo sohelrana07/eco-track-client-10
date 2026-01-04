@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { FaUser, FaEnvelope } from "react-icons/fa";
 import { MdPhotoCamera } from "react-icons/md";
 import { AuthContext } from "../Context/AuthContext";

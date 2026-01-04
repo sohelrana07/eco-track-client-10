@@ -130,10 +130,11 @@ const Navbar = () => {
               >
                 {/* theme */}
                 <input
+                  title="Theme"
                   onChange={(e) => handleTheme(e.target.checked)}
                   type="checkbox"
                   defaultChecked={localStorage.getItem("theme") === "dark"}
-                  className="toggle m-2.5"
+                  className="toggle m-2.5 hover:text-primary"
                 />
                 <li className=" hover:text-primary">
                   <Link to="/profile" className="justify-between">
@@ -154,15 +155,24 @@ const Navbar = () => {
             </div>
           ) : (
             <>
+              {/* theme */}
+              <input
+                title="Theme"
+                onChange={(e) => handleTheme(e.target.checked)}
+                type="checkbox"
+                defaultChecked={localStorage.getItem("theme") === "dark"}
+                className="toggle text-primary"
+              />
+
               <Link
                 to="/auth/login"
-                className="btn btn-outline btn-accent border-primary text-primary hover:bg-primary hover:text-white px-5"
+                className="btn btn-outline btn-accent border-primary text-primary hover:bg-primary hover:text-white px-5 mx-5"
               >
                 Login
               </Link>
               <Link
                 to="/auth/register"
-                className="btn bg-primary hover:opacity-90 text-white ml-6 hidden md:flex"
+                className="btn bg-primary hover:opacity-90 text-white hidden md:flex"
               >
                 Register
               </Link>
